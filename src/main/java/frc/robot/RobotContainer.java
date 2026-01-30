@@ -37,7 +37,8 @@ public class RobotContainer {
   public RobotContainer() {
       // Outtake controls
       controller.leftTrigger().whileTrue(outtake.spinOuttake()).onFalse(outtake.stopOuttake());
-  
+
+      controller.leftTrigger().whileTrue(elevator.level1());
       controller.b().whileTrue(intake.runIntake()).onFalse(intake.stopIntake());
       controller.a().whileTrue(intake.slowIntake()).onFalse(intake.stopIntake());
       controller.x().onTrue(intake.stopIntake());
