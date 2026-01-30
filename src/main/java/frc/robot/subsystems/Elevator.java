@@ -29,18 +29,22 @@ public class Elevator extends SubsystemBase {
     MainElevatorMotor= new TalonFX(Constants.ElevatorConstants.MainElevatorMotorID);
     FollowerElevatorMotor = new TalonFX(Constants.ElevatorConstants.FollowerElevatorMotorID);
     Slot0Configs slot0 = new Slot0Configs();
-    config = new TalonFXConfiguration();
-    config.Slot0.kP = 0.12;
-    config.Slot0.kI = 0.0;
-     config.Slot0.kD = 0.0;
-    config.Slot0.kV = 0.12; 
+    slot0.kP = 0.8;      
+    slot0.kI = 0.0;
+    slot0.kD = 0.0;
+
+    slot0.kG = 0.25;     
+    slot0.kV = 0.12;     
+    slot0.kA = 0.01;     
     config.Slot0 = slot0;
+
     MotionMagicConfigs mm = new MotionMagicConfigs();
-    mm.MotionMagicCruiseVelocity = 60;
-    mm.MotionMagicAcceleration = 80; 
-    mm.MotionMagicJerk = 300;        
+    mm.MotionMagicCruiseVelocity = 30;  
+    mm.MotionMagicAcceleration = 60;
+    mm.MotionMagicJerk = 0;             
+        
     config.MotionMagic = mm;
-    double rotations = MainElevatorMotor.getPosition().getValueAsDouble();
+    //double rotations = MainElevatorMotor.getPosition().getValueAsDouble();
 
     MainElevatorMotor.getConfigurator().apply(config);
     FollowerElevatorMotor.getConfigurator().apply(config);

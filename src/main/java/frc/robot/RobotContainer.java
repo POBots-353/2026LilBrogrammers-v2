@@ -42,8 +42,13 @@ public class RobotContainer {
       controller.a().whileTrue(intake.slowIntake()).onFalse(intake.stopIntake());
       controller.x().onTrue(intake.stopIntake());
       controller.x().whileTrue(intake.outtake()).onFalse(intake.stopIntake());
-      controller.y().whileTrue(elevator.moveUp()).onFalse(elevator.stop());
-      controller.povDown().whileTrue(elevator.moveDown()).onFalse(elevator.stop());
+      controller.y().whileTrue(elevator.moveUp()).onFalse(elevator.holdInPlace());
+      controller.leftTrigger().whileTrue(elevator.moveUp()).onFalse(elevator.holdInPlace());
+      controller.rightTrigger().whileTrue(elevator.moveDown()).onFalse(elevator.holdInPlace());
+      controller.povUp().whileTrue(elevator.goToFirstLevel()).onFalse(elevator.holdInPlace());
+      controller.povRight().whileTrue(elevator.goToSecondLevel()).onFalse(elevator.holdInPlace());
+      controller.povLeft().whileTrue(elevator.goToThirdLevel()).onFalse(elevator.holdInPlace());
+      controller.povDown().whileTrue(elevator.goToFourthLevel()).onFalse(elevator.holdInPlace());
     configureBindings();
   }
 
