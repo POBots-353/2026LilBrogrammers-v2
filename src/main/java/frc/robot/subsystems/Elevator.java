@@ -11,16 +11,19 @@ import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.MotorAlignmentValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
+  // private Debouncer elevatorDebouncer = new Debouncer(0.353);
   private final TalonFX MainElevatorMotor;
   private final TalonFX FollowerElevatorMotor;
-
+  private Debouncer zeroedDebouncer = new Debouncer(2.5);
   private final MotionMagicVoltage elevatorPosition = new MotionMagicVoltage(0);
   public Elevator() {
     MainElevatorMotor = new TalonFX(Constants.ElevatorConstants.MainElevatorMotorID);
@@ -31,18 +34,19 @@ public class Elevator extends SubsystemBase {
         .withKP(0.8)
         .withKI(0.0)
         .withKD(0.0)
-        .withKG(0.25)
+        .withKG(0.4)
         .withKV(0.12)
         .withKA(0.01);
 
       MotionMagicConfigs mm = new MotionMagicConfigs() 
-        .withMotionMagicCruiseVelocity(8)
-        .withMotionMagicAcceleration(16)
+        .withMotionMagicCruiseVelocity(5)
+        .withMotionMagicAcceleration(10)
         .withMotionMagicJerk(0);
 
       config = new TalonFXConfiguration();
       config.Slot0 = slot0;
       config.MotionMagic = mm;
+      config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     
   
   MainElevatorMotor.getConfigurator().apply(config);
@@ -80,7 +84,9 @@ public class Elevator extends SubsystemBase {
       elevatorPosition.Position = Constants.ElevatorConstants.firstLevelHeight;
 
       MainElevatorMotor.setControl(elevatorPosition);
-    }).withName("Elevator to first level");
+    })
+      .finallyDo(()->holdInPlace())
+    .withName("Elevator to first level");
   }
   public Command goToSecondLevel(){
     return run(()->{

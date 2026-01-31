@@ -31,7 +31,7 @@ public class RobotContainer {
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
       private final AlgaeIntake intake = new AlgaeIntake();
       private final Outtake outtake = new Outtake();
-      private final CommandXboxController controller = new CommandXboxController(Constants.algaeIntakeC.intakeID);
+      private final CommandXboxController controller = new CommandXboxController(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -43,12 +43,11 @@ public class RobotContainer {
       controller.x().onTrue(intake.stopIntake());
       controller.x().whileTrue(intake.outtake()).onFalse(intake.stopIntake());
       controller.y().whileTrue(elevator.moveUp()).onFalse(elevator.holdInPlace());
-      controller.leftTrigger().whileTrue(elevator.moveUp()).onFalse(elevator.holdInPlace());
-      controller.rightTrigger().whileTrue(elevator.moveDown()).onFalse(elevator.holdInPlace());
+      
       controller.povUp().whileTrue(elevator.goToFirstLevel()).onFalse(elevator.holdInPlace());
-      controller.povRight().whileTrue(elevator.goToSecondLevel()).onFalse(elevator.holdInPlace());
+      /*controller.povRight().whileTrue(elevator.goToSecondLevel()).onFalse(elevator.holdInPlace());
       controller.povLeft().whileTrue(elevator.goToThirdLevel()).onFalse(elevator.holdInPlace());
-      controller.povDown().whileTrue(elevator.goToFourthLevel()).onFalse(elevator.holdInPlace());
+      controller.povDown().whileTrue(elevator.goToFourthLevel()).onFalse(elevator.holdInPlace());*/
     configureBindings();
   }
 
