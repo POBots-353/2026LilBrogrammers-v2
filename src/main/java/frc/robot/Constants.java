@@ -80,4 +80,26 @@ public final class Constants {
   .withMotionMagicAcceleration(3)
   .withMotionMagicCruiseVelocity(3);
   }
+
+    public static class intakeC{
+    public static final int mainIntakeID = 16;
+    public static final int followIntakeID = 40;
+    
+    public static final double intakeSpeed = .5;
+    public static final double slowIntakeSpeed = .2;
+
+    public static final int smartLimitIntake = 30;
+    public static final int secondLimitIntake = 60;
+  }
+
+  public static class MaeherOuttakeC{
+    public static final int outTakeID = 18;
+
+    public static final double outakeSlowSpeed = .1;
+    public static final double outakeFastSpeed = .4;
+
+    public static final int outakeSmartLimit = 25;
+    public static final int outtakeSecondLimit = 55;
+
+  }
 }
