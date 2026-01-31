@@ -36,13 +36,10 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
       // Outtake controls
-      controller.leftTrigger().whileTrue(outtake.spinOuttake()).onFalse(outtake.stopOuttake());
-
-      controller.b().whileTrue(intake.runIntake()).onFalse(intake.stopIntake());
-      controller.a().whileTrue(intake.slowIntake()).onFalse(intake.stopIntake());
-      controller.x().onTrue(intake.stopIntake());
-      controller.x().whileTrue(intake.outtake()).onFalse(intake.stopIntake());
-      controller.y().whileTrue(elevator.moveUp()).onFalse(elevator.holdInPlace());
+      controller.b().whileTrue(coralIntake.fastIntake()).onFalse(coralIntake.stopIntake());
+      controller.a().onTrue(coralIntake.stopIntake());
+      controller.y().whileTrue(outaking.slowOutake()).onFalse(outaking.stopOuttake());
+      controller.x().whileTrue(outaking.stopOuttake()).onFalse(outaking.stopOuttake());
       
       controller.povUp().whileTrue(elevator.goToFirstLevel()).onFalse(elevator.holdInPlace());
       /*controller.povRight().whileTrue(elevator.goToSecondLevel()).onFalse(elevator.holdInPlace());
